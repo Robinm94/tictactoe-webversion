@@ -1,13 +1,18 @@
 $(function () {
     let board = initial_state();
-    player();
-    actions(board);
     const X = "X";
     const O = "O";
     const xwin = [X, X, X];
     const owin = [O, O, O];
+    player(board);
+    actions(board);
+    winner(board);
 
-    function player() {
+    function initial_state() {
+        return [[null, null, null], [null, null, null], [null, null, null]];
+    }
+
+    function player(board) {
         let counter = 0;
         for (const row of board) {
             for (const cell of row) {
@@ -49,10 +54,42 @@ $(function () {
 
     function winner(board) {
         let winlines = [];
-
+        $.extend(winlines, board);
+        for (let i = 0; i < 3; i++) {
+            winlines.push([board[0][i], board[1][i], board[2][i]]);
+        }
+        winlines.push([board[0][0], board[1][1], board[2][2]]);
+        winlines.push([board[2][0], board[1][1], board[0][2]]);
+        for (const line of winlines) {
+            if (xwin.length == line.length && xwin.every(function (element, index) { return element === line[index]; })) {
+                return X;
+            }
+            if (owin.length == line.length && owin.every(function (element, index) { return element === line[index]; })) {
+                return O;
+            }
+        }
+        return null;
     }
 
-    function initial_state() {
-        return [[null, null, null], [null, null, null], [null, null, null]];
+    function terminal(board) {
+        if (player(board) == null || winner(board) != null) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
+
+    function utility(board){
+        const winplayer = winner(board);
+        if (winplayer == null){
+            return 0;
+        }
+        else if (winplayer == X) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+
 });
