@@ -7,7 +7,6 @@ $(function () {
     player(board);
     actions(board);
     winner(board);
-
     function initial_state() {
         return [[null, null, null], [null, null, null], [null, null, null]];
     }
@@ -90,6 +89,23 @@ $(function () {
         } else {
             return -1;
         }
+    }
+
+    function hash(board) {
+        let hashmap = "";
+        for (const row of board) {
+            for (const cell of row) {
+                if (cell == null){
+                    hashmap.concat(0);
+                }
+                else if (cell == X) {
+                    hashmap.concat(1);
+                } else {
+                    hashmap.concat(2);
+                }
+            }
+        }
+        return hashmap;
     }
 
 });
