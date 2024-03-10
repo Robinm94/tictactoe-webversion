@@ -1,0 +1,35 @@
+#tictactoe-container {
+    display: flex;
+    width: 400px;
+    height: 400px;
+    font-family: Arial, sans-serif;
+    background-color: #333;
+    color: rgba(255, 255, 255, 0.498);
+    text-align: center;
+}
+
+#gameBoard {
+    margin: auto;
+    width: 310px;
+    height: 310px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 5px;
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+}
+
+.cell:hover {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
+    background-color: #222;
+}
