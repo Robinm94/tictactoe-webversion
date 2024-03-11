@@ -5,13 +5,39 @@ $(function () {
     const xwin = [X, X, X];
     const owin = [O, O, O];
     const graph = new Map();
+    let user = null;
     let board = initial_state();
     // graphPopulator(board);
     stateValue(board);
-    minimax(board);
-    player(board);
-    actions(board);
-    winner(board);
+    // minimax(board);
+    // player(board);
+    // actions(board);
+    // winner(board);
+
+    $("#playAsX").on("click", function () {
+        user = X;
+        $("#playerInfo").text("Play as X");
+        $("#gameMenu").slideUp();
+    });
+
+    $("#playAsO").on("click", function () {
+        user = O;
+        $("#playerInfo").text("Play as O");
+        $("#gameMenu").slideUp();
+    });
+
+    $("#endGame").on("click", function () {
+        $("#gameMenu").slideDown();
+        $("#playerInfo").empty();
+        user = null;
+        board = initial_state();
+        $(".cell").empty();
+    });
+
+    $(".cell").on("click",function(){
+        // TODO
+    });
+
     function initial_state() {
         return [[null, null, null], [null, null, null], [null, null, null]];
     }
@@ -138,7 +164,7 @@ $(function () {
             graph.set(hashboard, boardValue);
             return boardValue;
         }
-        else{
+        else {
             const boardValue = Math.min(...mvalue);
             graph.set(hashboard, boardValue);
             return boardValue;
@@ -156,18 +182,18 @@ $(function () {
         for (let move of listAction) {
             const move_value = stateValue(result(board, move));
             mvalue.push(move_value);
-            if(moves.has(move_value)){
+            if (moves.has(move_value)) {
                 moves.get(move_value).push(move);
             }
             else {
-                moves.set(move_value,[move]);
+                moves.set(move_value, [move]);
             }
         }
         if (cplayer == X) {
             const bestMoves = moves.get(Math.max(...mvalue));
             return bestMoves[Math.floor(Math.random() * bestMoves.length)];
         }
-        else{
+        else {
             const bestMoves = moves.get(Math.min(...mvalue));
             return bestMoves[Math.floor(Math.random() * bestMoves.length)];
         }
