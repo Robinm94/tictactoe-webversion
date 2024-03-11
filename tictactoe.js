@@ -1,9 +1,14 @@
 $(function () {
-    let board = initial_state();
+
     const X = "X";
     const O = "O";
     const xwin = [X, X, X];
     const owin = [O, O, O];
+    const graph = new Map();
+    let board = initial_state();
+    // graphPopulator(board);
+    stateValue(board);
+    minimax(board);
     player(board);
     actions(board);
     winner(board);
@@ -79,9 +84,9 @@ $(function () {
         }
     }
 
-    function utility(board){
+    function utility(board) {
         const winplayer = winner(board);
-        if (winplayer == null){
+        if (winplayer == null) {
             return 0;
         }
         else if (winplayer == X) {
@@ -95,17 +100,79 @@ $(function () {
         let hashmap = "";
         for (const row of board) {
             for (const cell of row) {
-                if (cell == null){
-                    hashmap.concat(0);
+                if (cell == null) {
+                    hashmap += 0;
                 }
                 else if (cell == X) {
-                    hashmap.concat(1);
+                    hashmap += 1;
                 } else {
-                    hashmap.concat(2);
+                    hashmap += 2;
                 }
             }
         }
         return hashmap;
     }
 
+    function stateValue(board) {
+        const hashboard = hash(board);
+        if (graph.has(hashboard)) {
+            return graph.get(hashboard);
+        }
+        if (terminal(board)) {
+            const boardValue = utility(board);
+            graph.set(hashboard, boardValue);
+            return boardValue;
+        }
+        const mvalue = [];
+        const listAction = actions(board);
+        const cplayer = player(board);
+        for (let move of listAction) {
+            const move_value = stateValue(result(board, move));
+            mvalue.push(move_value);
+            if ((cplayer == X && move_value == 1) || (cplayer == O && move_value == -1)) {
+                break;
+            }
+        }
+        if (cplayer == X) {
+            const boardValue = Math.max(...mvalue);
+            graph.set(hashboard, boardValue);
+            return boardValue;
+        }
+        else{
+            const boardValue = Math.min(...mvalue);
+            graph.set(hashboard, boardValue);
+            return boardValue;
+        }
+    }
+
+    function minimax(board) {
+        if (terminal(board)) {
+            return null;
+        }
+        const cplayer = player(board);
+        const listAction = actions(board);
+        const mvalue = [];
+        const moves = new Map();
+        for (let move of listAction) {
+            const move_value = stateValue(result(board, move));
+            mvalue.push(move_value);
+            if(moves.has(move_value)){
+                moves.get(move_value).push(move);
+            }
+            else {
+                moves.set(move_value,[move]);
+            }
+        }
+        if (cplayer == X) {
+            const bestMoves = moves.get(Math.max(...mvalue));
+            return bestMoves[Math.floor(Math.random() * bestMoves.length)];
+        }
+        else{
+            const bestMoves = moves.get(Math.min(...mvalue));
+            return bestMoves[Math.floor(Math.random() * bestMoves.length)];
+        }
+    }
+    // async function graphPopulator(board){
+    //     stateValue(board);
+    // }
 });
