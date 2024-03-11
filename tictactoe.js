@@ -35,8 +35,15 @@ $(function () {
     });
 
     $(".cell").on("click",function(){
-        // TODO
+        if(user == player(board)){
+            $(this).text(user);
+            parseInt($(this).attr("id").replace("cell", "")) - 1;
+        }
     });
+
+    function cellClicked(){
+
+    }
 
     function initial_state() {
         return [[null, null, null], [null, null, null], [null, null, null]];
