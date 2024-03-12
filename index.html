@@ -1,45 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./tictactoe.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="node_modules/jquery/dist/jquery.min.js"><\/script>')</script>
-    <script src="./tictactoe.js"></script>
-</head>
-
-<body>
-    <div id="tictactoe-container">
-        <div id="gameMenu">
-            <div id="gameMenuInfo">
-                <h1 id="tictactoeTitle">Play Tic-Tac-Toe</h1>
-                <div class="playerBanner">
-                    <button id="playAsX">Play as X</button>
-                    <button id="playAsO">Play as O</button>
-                </div>
-            </div>
-        </div>
-        <div id="gameBoardContainer">
-            <h3 id="playerInfo"></h3>
-            <div id="gameBoard">
-                <div class="cell" id="cell0"></div>
-                <div class="cell" id="cell1"></div>
-                <div class="cell" id="cell2"></div>
-                <div class="cell" id="cell3"></div>
-                <div class="cell" id="cell4"></div>
-                <div class="cell" id="cell5"></div>
-                <div class="cell" id="cell6"></div>
-                <div class="cell" id="cell7"></div>
-                <div class="cell" id="cell8"></div>
-            </div>
-            <div id="gameEndBanner">
-                <button id="endGame">End Game</button>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="node_modules/jquery/dist/jquery.min.js"><\/script>')</script>
+<script src="./tictactoe.js"></script>
+<link rel="stylesheet" href="./tictactoe.css">
+<div id="tictactoe-container">
+    <div id="gameMenu">
+        <div id="gameMenuInfo">
+            <h1 id="tictactoeTitle">Play Tic-Tac-Toe</h1>
+            <div class="playerBanner">
+                <button id="playAsX">Play as X</button>
+                <button id="playAsO">Play as O</button>
             </div>
         </div>
     </div>
-</body>
-
-</html>
+    <div id="gameBoardContainer">
+        <h3 id="playerInfo"></h3>
+        <div id="gameBoard">
+            <div class="cell" id="cell0"></div>
+            <div class="cell" id="cell1"></div>
+            <div class="cell" id="cell2"></div>
+            <div class="cell" id="cell3"></div>
+            <div class="cell" id="cell4"></div>
+            <div class="cell" id="cell5"></div>
+            <div class="cell" id="cell6"></div>
+            <div class="cell" id="cell7"></div>
+            <div class="cell" id="cell8"></div>
+        </div>
+        <div id="gameEndBanner">
+            <button id="endGame">End Game</button>
+        </div>
+    </div>
+</div>
