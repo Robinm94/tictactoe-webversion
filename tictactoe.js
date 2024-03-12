@@ -58,7 +58,12 @@ $(function () {
         if (terminal(board)) {
             let wPlayer = winner(board);
             if (wPlayer != null) {
-                $("#playerInfo").text("Game Over: " + wPlayer + " Wins");
+                if(wPlayer == user){
+                    $("#playerInfo").text("Game Over: The Player Wins");
+                }
+                else{
+                    $("#playerInfo").text("Game Over: Computer Wins");
+                }
             }
             else {
                 $("#playerInfo").text("Game Over: Tie");
