@@ -7,13 +7,7 @@ $(function () {
     const graph = new Map();
     let user = null;
     let board = initial_state();
-    // graphPopulator(board);
     stateValue(board);
-    console.log(graph);
-    // minimax(board);
-    // player(board);
-    // actions(board);
-    // winner(board);
 
     $("#playAsX").on("click", function () {
         user = X;
@@ -244,7 +238,4 @@ $(function () {
             return bestMoves[Math.floor(Math.random() * bestMoves.length)];
         }
     }
-    // async function graphPopulator(board){
-    //     stateValue(board);
-    // }
 });
