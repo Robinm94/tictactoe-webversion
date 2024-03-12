@@ -9,6 +9,7 @@ $(function () {
     let board = initial_state();
     // graphPopulator(board);
     stateValue(board);
+    console.log(graph);
     // minimax(board);
     // player(board);
     // actions(board);
@@ -22,8 +23,9 @@ $(function () {
 
     $("#playAsO").on("click", function () {
         user = O;
-        $("#playerInfo").text("Play as O");
         $("#gameMenu").slideUp();
+        aiMove();
+        $("#playerInfo").text("Play as O");
     });
 
     $("#endGame").on("click", function () {
@@ -34,15 +36,47 @@ $(function () {
         $(".cell").empty();
     });
 
-    $(".cell").on("click",function(){
-        if(user == player(board)){
+    $(".cell").on("click", function () {
+        if (user == player(board)) {
+            const cellId = parseInt($(this).attr("id").replace("cell", ""));
+            let action = [parseInt(cellId / 3), parseInt(cellId % 3)];
+            try {
+                board = result(board, action);
+            } catch (error) {
+                return;
+            }
             $(this).text(user);
-            parseInt($(this).attr("id").replace("cell", "")) - 1;
+            aiMove();
+            if (checkGameOver()) {
+                return;
+            }
+            $("#playerInfo").text("Play as " + user);
         }
     });
 
-    function cellClicked(){
+    function checkGameOver() {
+        if (terminal(board)) {
+            let wPlayer = winner(board);
+            if (wPlayer != null) {
+                $("#playerInfo").text("Game Over: " + wPlayer + " Wins");
+            }
+            else {
+                $("#playerInfo").text("Game Over: Tie");
+            }
+            return 1;
+        }
+        return 0;
+    }
 
+    function aiMove() {
+        if (player(board) != user && !terminal(board)) {
+            const comPlayer = player(board);
+            $("#playerInfo").text("Computer playing as " + comPlayer);
+            const bestMove = minimax(board);
+            const cellId = "cell" + (parseInt(bestMove[0] * 3 + bestMove[1]));
+            $("#" + cellId).text(player(board));
+            board = result(board, bestMove);
+        }
     }
 
     function initial_state() {
