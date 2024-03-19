@@ -1,11 +1,11 @@
 $(function () {
 
+    let user = null;
     const X = "X";
     const O = "O";
-    const graph = new Map();
     const xwin = [X, X, X];
     const owin = [O, O, O];
-    let user = null;
+    const graph = new Map();
     let board = initial_state();
     stateValue(board);
 
