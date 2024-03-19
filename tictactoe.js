@@ -2,9 +2,9 @@ $(function () {
 
     const X = "X";
     const O = "O";
+    const graph = new Map();
     const xwin = [X, X, X];
     const owin = [O, O, O];
-    const graph = new Map();
     let user = null;
     let board = initial_state();
     stateValue(board);
