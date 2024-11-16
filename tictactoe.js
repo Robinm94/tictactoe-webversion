@@ -271,12 +271,13 @@ $(function () {
     // If the game is won by X, the utility is 1.
     // If the game is won by O, the utility is -1.
     const winplayer = winner(board);
+    const weight = weightedDecision(board);
     if (winplayer == null) {
       return 0;
     } else if (winplayer == X) {
-      return 1;
+      return Math.round((1 - weight) * 100) / 100;
     } else {
-      return -1;
+      return Math.round((-1 + weight) * 100) / 100;
     }
   }
 
